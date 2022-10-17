@@ -91,24 +91,24 @@ doSomething(myString);
 #### string.h
 
 ```c
-strlen(str)
+strlen(str);
 
-strcmp(str1,str2) //compares 2 strings alphabetically
-strncmp(str1,str2,n) //first n letters
+strcmp(str1,str2); //compares 2 strings alphabetically
+strncmp(str1,str2,n); //first n letters
 
-strchr(str,ch) //searches a char in a string. Returns a pointer or NULL
-strrchr(str,ch) //finds the last occurance
+strchr(str,ch); //searches a char in a string. Returns a pointer or NULL
+strrchr(str,ch); //finds the last occurance
 
-strstr(haysack,needle) // searches a substring in a string, returns a pointer or NULL
+strstr(haysack,needle); // searches a substring in a string, returns a pointer or NULL
 
-strcpy(dst,src) //copy a string onto another, includes \0, more info below
-strncpy(dst,src,n) //stops after n and does not include \0
+strcpy(dst,src); //copy a string onto another, includes \0, more info below
+strncpy(dst,src,n); //stops after n and does not include \0
 
-strcat(dst,src) //copies characters in src to dst, replacing old \0 and adding new \0 to the end.
-strncat(dst,src,n) //stops copying after n characters
+strcat(dst,src); //copies characters in src to dst, replacing old \0 and adding new \0 to the end.
+strncat(dst,src,n); //stops copying after n characters
 
-strspn(str,accept) //returns the length of the initial part of str which contains characters only from accept. (?)
-strcspn(str,reject) //returns the length of the initial part of str which does not contain any characters from reject. (?)
+strspn(str,accept); //returns the length of the initial part of str which contains characters only from accept. (?)
+strcspn(str,reject); //returns the length of the initial part of str which does not contain any characters from reject. (?)
 ```
 
 #### Comparing strings
