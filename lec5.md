@@ -47,13 +47,13 @@ Emojis are included in Unicode (version 15). (like U+1F600)
 ### ctype.h
 
 ```c
-isalpha(char) //true if a letter
-islower(char) //'a' -> 'z'
-isupper(char) //'A' -> 'Z'
-isspace(char) //space, tab, newline...
-isdigit(char) //'0' -> '9'
-toupper(char) //returns uppercase
-tolower(char) //returns lowercase
+isalpha(ch); //true if a letter
+islower(ch); //'a' -> 'z'
+isupper(ch); //'A' -> 'Z'
+isspace(ch); //space, tab, newline...
+isdigit(ch); //'0' -> '9'
+toupper(ch); //returns uppercase
+tolower(ch); //returns lowercase
 ```
 
 ## Strings
