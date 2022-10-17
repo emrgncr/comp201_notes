@@ -58,12 +58,17 @@ Maximum base 10 value in a single byte: 255 = 2^8 - 1
 
 ```math
 1450_{10} \times 10 = 14500_{10}
-\newline
+```
+
+```math
 1100_2 \times 2_{10} = 11000_2
-\newline
-\newline
+```
+
+```math
 1450_{10} / 10 = 145_{10}
-\newline
+```
+
+```math
 1100_2 / 2_{10} = 110_2
 
 ```
