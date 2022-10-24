@@ -11,3 +11,4 @@ You can wind the lecture notes here, I guess I will update them ocationally.
 4) [Lec 4, Representing Real Numbers](./lec4.md)
 5) [Lec 5, Representing Text](./lec5.md)
 6) [Lec 6, More Strings and Pointers](./lec6.md)
+7) [Lec 7, Arrays and Pointers](./lec7.md)
