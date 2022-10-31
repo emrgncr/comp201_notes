@@ -24,6 +24,7 @@ $$
 5 9 3 4
 = 5\times1000 + 9\times100 + 3\times10 + 4\times1
 $$
+
 Base 2:
 
 $$
