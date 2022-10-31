@@ -20,17 +20,18 @@ Memory is an array of bytes, byte-adressable.
 
 Base 10:
 
-```math
+$$
 5 9 3 4
 = 5\times1000 + 9\times100 + 3\times10 + 4\times1
-```
+$$
 Base 2:
 
-```math
+$$
 1011_2
 = 1\times 2^3 + 0\times2^2 + 1 \times2^1 + 1\times 2^0
 = 11_{10}
-```
+$$
+
 ## Getting base 2:
 1- get the largest power of 2 smaller than X, a.
 repeat this process for X - 2^a
@@ -46,9 +47,9 @@ example for 6:
 
 so
 
-```math
+$$
 6_{10} = 2^2 + 2^1 + 0 = 110_2
-```
+$$
 
 Minimum base 10 value in a single byte: 0
 
@@ -56,22 +57,21 @@ Maximum base 10 value in a single byte: 255 = 2^8 - 1
 
 ### Multiplying by base
 
-```math
+$$
 1450_{10} \times 10 = 14500_{10}
-```
+$$
 
-```math
+$$
 1100_2 \times 2_{10} = 11000_2
-```
+$$
 
-```math
+$$
 1450_{10} / 10 = 145_{10}
-```
+$$
 
-```math
+$$
 1100_2 / 2_{10} = 110_2
-
-```
+$$
 
 ## Hexadecimal
 
