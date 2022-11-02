@@ -14,3 +14,4 @@ You can wind the lecture notes here, I guess I will update them ocationally.
 7) [Lec 7, Arrays and Pointers](./lec7.md)
 8) [Lec 8, Arrays, Memory and Heap](./lec8.md)
 9) [Lec 9, realloc, Memory Bugs](./lec9.md)
+10) [Lec 10, Generics and void*](./lec10.md)
