@@ -16,3 +16,4 @@ You can wind the lecture notes here, I guess I will update them ocationally.
 9) [Lec 9, realloc, Memory Bugs](./lec9.md)
 10) [Lec 10, Generics and void*](./lec10.md)
 11) [Lec 11, More Generics and Function Pointers](./lec11.md)
+12) [Lec 12, const and Structs](./lec12.md)
