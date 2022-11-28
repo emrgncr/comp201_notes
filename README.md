@@ -18,3 +18,5 @@ You can wind the lecture notes here, I guess I will update them ocationally.
 11) [Lec 11, More Generics and Function Pointers](./lec11.md)
 12) [Lec 12, const and Structs](./lec12.md)
 13) [Lec 13, Compiling a C Program and Makefiles](./lec13.md)
+14) [Lec 14, Introduction to Assembly, mov](./lec14.md)
+15) [Lec 15, More on assembly](./lec15.md)
