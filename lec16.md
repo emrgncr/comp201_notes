@@ -29,7 +29,7 @@ int elem_arithmatic(int nums[], int y){
 
 ```asm
 elem_arithmatic:
-    movl %esi, %eax     #set z to y
+    movl %esi, %eax     //set z to y
     imull (%rdi), %eax  //multiply z by nums[0]
     sub 4(%rdi), %eax   //subtract nums[1] from z
     sarl $2, %eax       //shift z right by 2
