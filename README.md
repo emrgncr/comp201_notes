@@ -3,7 +3,7 @@ These are my notes for comp201 lectures in Koç University, given by Aykut Erdem
 
 My notes are mostly similar to the lecture notes avaliable on the [course website](https://aykuterdem.github.io/classes/comp201.f22).
 
-You can wind the lecture notes here, I guess I will update them ocationally.
+You can find the lecture notes here, I guess I will update them ocationally.
 
 1) [Lec 1, First C Program](./lec1.md)
 2) [Lec 2, Representing Integers](./lec2.md)
