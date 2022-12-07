@@ -198,7 +198,7 @@ cmpq        Compare quad word
 
 ----------
 
-The **test** insturction is similar to cmp but for AND. It does not sote the & result anywhere, it sets the condition codes. (also has testb ...)
+The **test** insturction is similar to cmp but for AND. It does not store the & result anywhere, it sets the condition codes. (also has testb ...) (also AND is bitwise)
 
 ```asm
 test S1, S2     (S2 & S1)

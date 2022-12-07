@@ -20,4 +20,5 @@ You can wind the lecture notes here, I guess I will update them ocationally.
 13) [Lec 13, Compiling a C Program and Makefiles](./lec13.md)
 14) [Lec 14, Introduction to Assembly, mov](./lec14.md)
 15) [Lec 15, More on assembly](./lec15.md)
-15) [Lec 16, Jump and conditionals](./lec16.md)
+16) [Lec 16, Jump and conditionals](./lec16.md)
+17) [Lec 17, If-else, loops](./lec17.md)
