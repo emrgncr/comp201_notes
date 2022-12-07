@@ -108,11 +108,11 @@ void loop(){
 ```
 
 ```asm
-0x0400570 <+0>: mov $0x0,%eax              // i = 0
+0x0400570 <+0>: mov $0x0,%eax              ; i = 0
 0x0400575 <+5>: jmp 0x40057a <loop+10>
-0x0400577 <+7>: add $0x1,%eax              // i++
-0x040057a <+10>: cmp $0x63,%eax            // eax - 99
-0x040057d <+13>: jle 0x400577 <loop+7>     // i <= 99
+0x0400577 <+7>: add $0x1,%eax              ; i++
+0x040057a <+10>: cmp $0x63,%eax            ; eax - 99
+0x040057d <+13>: jle 0x400577 <loop+7>     ; i <= 99
 0x040057f <+15>: repz retq
 ```
 
@@ -184,8 +184,8 @@ int small(int x){
 
 ```asm
 cmp $0xf,%edi
-setle %al           //set al to 1 if cmp result is less or equal
-movzbl %al,%eax     //zero extend al to eax
+setle %al           ;set al to 1 if cmp result is less or equal
+movzbl %al,%eax     ;zero extend al to eax
 retq
 ```
 
@@ -225,8 +225,8 @@ return x > y ? x : y;
 
 ```asm
 cmp %edi,%esi
-mov %edi, %eax      //move x to eax
-cmovge %esi, %eax   //if y >= x, move y to eax
+mov %edi, %eax      ;move x to eax
+cmovge %esi, %eax   ;if y >= x, move y to eax
 retq
 ```
 
@@ -242,10 +242,10 @@ return x / 4;
 
 ```asm
 signed_division:
-    leal 3(%rdi), %eax  //put x + 3 in %eax
-    testl %edi, %edi    //test if x is negative
-    cmovns %edi, %eax   //If x is nonnegative, move x to %eax
-    sarl $2, %eax       //arithmetic shift right 2 bits (divide by 4)
+    leal 3(%rdi), %eax  ;put x + 3 in %eax
+    testl %edi, %edi    ;test if x is negative
+    cmovns %edi, %eax   ;If x is nonnegative, move x to %eax
+    sarl $2, %eax       ;arithmetic shift right 2 bits (divide by 4)
     ret
 ```
 
@@ -265,7 +265,7 @@ long loop(long a, long b){
 ```
 
 ```asm
-// a in %rdi, b in %rsi
+;a in %rdi, b in %rsi
 loop:
     movl $1, %eax
     jmp .L2
@@ -283,19 +283,19 @@ loop:
 
 ```asm
 escapeRoom:
-    leal (%rdi,%rdi), %eax  //eax = 2*x
+    leal (%rdi,%rdi), %eax  ;eax = 2*x
     cmpl $5, %eax           
-    jg .L3                  //if 2*x > 5, jump to .L3
+    jg .L3                  ;if 2*x > 5, jump to .L3
     cmpl $1, %edi           
-    jne .L4                 //if x != 1, jump to .L4
+    jne .L4                 ;if x != 1, jump to .L4
     movl $1, %eax           
-    ret                     //return 1
+    ret                     ;return 1
 .L3:
     movl $1, %eax           
-    ret                     //return 1
+    ret                     ;return 1
 .L4:
     movl $0, %eax
-    ret                     //return 0
+    ret                     ;return 0
 ```
 
 What should be passed into escapeRoom to return 1?
