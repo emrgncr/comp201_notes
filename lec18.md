@@ -55,12 +55,14 @@ Special hardware adds the size of the current instruction to %rip, and stores th
 
 - %rsp must point to the same place before a function is called and after it returns, since stack frames go away after a function returns.
 
-TODO add stack diagram
+|![rsp stack diagram](./img/lec18_rsp_stack_diagram.png)|
+|:--:|
 
 
 ### push
 
 - The push instruction pushes the data at the specified source onto the top of the stack, adjusting %rsp accordingly.
+- Basically puts the given `quad word` into `%rsp` and subtracts 8 from `%rsp`.
 
 ```asm
 pushq S ; R[%rsp] <- R[%rsp] - 8
@@ -75,6 +77,7 @@ movq S, (%rsp)
 ```
 
 - Sometimes instructions just explicitly decrement the stack pointer to make room for future data.
+- Also compiler likes to allocate more space than needed <small>(maybe because it wants to align memory to the powers of 2/4 or something)</small>.
 
 ### pop
 
@@ -87,7 +90,10 @@ popq D ; D <- M[R[%rsp]]
 
 This does not remove, clear the data! It just changes %rsp to indicate the next push can overwrite that location.
 
-TODO add stack example
+|Stack Example|
+|:--:|
+|![stack-example](./img/lec18_stack_example.png)|
+
 
 ## Pass control
 
@@ -97,7 +103,7 @@ TODO add stack example
 **Solution:**
 - Push the next value of %rip to stack. Then call the function. When it is finished, put this value back into %rip and continue executing.
 
-TODO add the example
+
 
 ### Call and Return
 
@@ -116,12 +122,78 @@ ret
 
 The stored %rip value is called return address. (DONT CONFUSE WITH RETURN VALUE)
 
+
+#### Example:
+
+Consider the assembly code:
+```asm
+do_smt:
+    pushl 0x8
+    call do_smt_else
+    popq %rax   ;let this address be RA2
+    retq
+do_smt_else:
+    ;some other assembly code that uses stack space
+    retq    
+
+```
+
+Assume RA1 is the return address of the caller of do_smt.
+
+|Stack representation <small>(Higher memory addresses to the left.)</small>|explanation|
+|:-|-:|
+|? / RA1 / |Start of do smt|
+|? / RA1 / 8 / |Save 8 on the stack|
+|? / RA1 / 8 / RA2 / |call do_smt_else|
+|? / RA1 / 8 / RA2 / ?? /|do_smt_else allocates stack space|
+|? / RA1 / 8 / RA2 / |do_smt_else deallocates stack space|
+|? / RA1 / 8 / |`retq`, control returns to RA2|
+|? / RA1 / |popq, `%rax` = 8|
+|? / |retq, control returns to RA1|
+
+
+
 ## Pass data
 
 First 6 arguments are stored in registers. The rest are stored on the stack. (arg 7 closer to %rsp)
 
-TODO add image
-TODO add parameters and return example
+![registers / stack for arguments](./img/lec18_registers_stack.png)
+
+### Example
+
+```c
+int main(int argc, char *argv[]) {
+int i1 = 1;
+int i2 = 2;
+int i3 = 3;
+int i4 = 4;
+int result = func(&i1, &i2, &i3, &i4,
+i1, i2, i3, i4);
+...
+}
+int func(int *p1, int *p2, int *p3, int *p4,
+int v1, int v2, int v3, int v4) {
+...
+}
+```
+
+```asm
+    sub $0x18,%rsp          ;allocate stack space 
+    movl $0x1,0xc(%rsp)     
+    movl $0x2,0x8(%rsp)
+    movl $0x3,0x4(%rsp)     
+    movl $0x4,(%rsp)        ;put i1 - i4 on stack
+    pushq $0x4              ;put i4 (8th argument) on stack
+    pushq $0x3              ;put i3 (7th argument) on stack
+    mov $0x2,%r9d           ;put i2 as the 6th argument
+    mov $0x1,%r8d           ; ...
+    lea 0x10(%rsp),%rcx
+    lea 0x14(%rsp),%rdx
+    lea 0x18(%rsp),%rsi
+    lea 0x1c(%rsp),%rdi     ;put &i1 as the first argument
+    callq 0x400546 <func>   ;call function
+    add $0x10,%rsp          ;deallocate stack space
+```
 
 ## Manage memory
 -   We must handle any space needed by the callee on the stack.
@@ -158,7 +230,23 @@ caller:
     - who is the callee
 - Can registers be used for temporary storage?
 
-TODO add toy exapmle
+
+```asm
+yoo:
+    ...
+    movq $15213, %rdx   ;15213 in rdx
+    call who
+    addq %rdx, %rax     ;now -3000 in rdx?
+    ...
+    ret
+```
+```asm
+who:
+    ...
+    subq $18213, %rdx   ;15213 -> -3000
+    ...
+    ret
+```
 
 There is only one copy of registers for all programs and fuctions.
 
@@ -166,7 +254,7 @@ There is only one copy of registers for all programs and fuctions.
 
 Solution: Make some registers caller-owned and some callee-owned.
 
-TODO add callee diagram
+![caller-diagram](img/lec18_stack_diagram.png)
 
 **Caller-Owned:**
 - Callee must save the existing value and restore it when done.
@@ -178,8 +266,75 @@ TODO add callee diagram
 
 Note that callee-owned also means caller-saved. (and vice versa)
 
-TODO add diagram
+|Registers|Specialty|
+|:--|--:|
+|%rax|Return value|
+|%rbx|Callee saved|
+|%rcx|4th argument|
+|%rdx|3rd argument|
+|%rsi|2nd argument|
+|%rdi|1st argument|
+|%rbp|Callee saved|
+|%rsp|Stack pointer|
+|%r8|5th argument|
+|%r9|6th argument|
+|%r10|Caller saved|
+|%r11|Caller saved|
+|%r12 - %r15|Callee saved|
 
-# Recutsion Example
+|![registers in functions](img/lec18_caller_owned_1.png)|![registers in functions 2](img/lec18_caller_owned_2.png)|
+|:-|-:|
 
-TODO add recursion example
+# Recursion Example
+
+```c
+long factorial(long n) {
+    long result;
+    if (n > 1) {
+        result = n * factorial(n - 1);
+    } else {
+        result = 1;
+    }
+    
+    return result;
+} 
+
+int main(int argc, char *argv[]) {
+    long num = 5;
+    long factnum = factorial(num);
+    printf("%ld! = %ld\n", num, factnum);
+    return 0;
+}
+```
+
+```asm
+factorial:
+  cmpq $1, %rdi
+  jle .L3
+  pushq %rbx
+  movq %rdi, %rbx
+  leaq -1(%rdi), %rdi
+  call factorial
+  imulq %rbx, %rax
+  jmp .L2
+.L3:
+  movl $1, %eax
+  ret
+.L2:
+  popq %rbx
+  ret
+.LC0:
+  .string "%ld! = %ld\n"
+main:
+  subq $8, %rsp
+  movl $5, %edi
+  call factorial
+  movq %rax, %rdx
+  movl $5, %esi
+  movl $.LC0, %edi
+  movl $0, %eax
+  call printf
+  movl $0, %eax
+  addq $8, %rsp
+  ret
+```

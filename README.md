@@ -22,4 +22,4 @@ You can find the lecture notes here, I guess I will update them ocationally.
 15) [Lec 15, More on assembly](./lec15.md)
 16) [Lec 16, Jump and conditionals](./lec16.md)
 17) [Lec 17, If-else, loops](./lec17.md)
-18) [Lec 18, Function calls, stack (Incomplate)](./lec18.md)
+18) [Lec 18, Function calls, stack](./lec18.md)
