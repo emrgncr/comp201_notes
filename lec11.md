@@ -76,7 +76,8 @@ void buble_sort(void* arr, size_t one_elem_size, size_t nelems){
 We will ask the user to provide us a compare function!
 
 ```c
-void buble_sort(void* arr, size_t one_elem_size, size_t nelems, bool (*compare_fn)(void* a, void* b)){
+void buble_sort(void* arr, size_t one_elem_size, size_t nelems, 
+                bool (*compare_fn)(void* a, void* b)){
     while(true){
         bool swapped = false;
         for(size_t i = 0; i < nelems - 1; i++){
@@ -102,7 +103,8 @@ bool student_compare(void* p1, void* p2);
 ...
 bubble_sort(arr, sizeof(int), 5, integer_compare);
 bubble_sort(arr, sizeof(char*), 5, string_compare);
-bubble_sort(arr, sizeof(Student), 5, student_compare); //assume Student is a struct
+bubble_sort(arr, sizeof(Student), 5, student_compare); 
+//assume Student is a struct
 ```
 
 ## Function Pointers

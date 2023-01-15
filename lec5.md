@@ -107,8 +107,11 @@ strncpy(dst,src,n); //stops after n and does not include \0
 strcat(dst,src); //copies characters in src to dst, replacing old \0 and adding new \0 to the end.
 strncat(dst,src,n); //stops copying after n characters
 
-strspn(str,accept); //returns the length of the initial part of str which contains characters only from accept. (?)
-strcspn(str,reject); //returns the length of the initial part of str which does not contain any characters from reject. (?)
+strspn(str,accept); //returns the length of the initial part of str 
+                    //which contains characters only from accept. (?)
+
+strcspn(str,reject); //returns the length of the initial part of str 
+                     //which does not contain any characters from reject. (?)
 ```
 
 #### Comparing strings
