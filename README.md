@@ -23,3 +23,5 @@ You can find the lecture notes here, I guess I will update them ocationally.
 16) [Lec 16, Jump and conditionals](./lec16.md)
 17) [Lec 17, If-else, loops](./lec17.md)
 18) [Lec 18, Function calls, stack](./lec18.md)
+19) [Lec 19, Data, Stack frame, Arrays](./lec19.md)
+20) [Lec 20, Floats and Buffer Overflow](./lec20.md)
