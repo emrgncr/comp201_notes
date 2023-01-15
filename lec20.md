@@ -6,7 +6,8 @@ When defining structs, to waste less space, define the largest data type first, 
 
 ## Floating Point
 
-We are using SSE3.
+- We are using SSE3.
+    - The newest version is AVX that is similar to SSE
 
 In order to deal with floating point numbers, we have 16 more registers each 16 bytes (XMM registers).
 
@@ -19,11 +20,18 @@ You can treat these registers as:
 - 1 single-presicion floating point number
 - 2 double-presicion floating point numbers
 
+
+|![XMM registers](./img/XMM%20regiisters.png)|
+|--|
+|<div style="text-align: center"><small>XMM registers</small></div>|
+
 ## SIMD operations
 
 If we have 4 single-presicion floating point numbers, we can do 4 operations at the same time.
 
-TODO add picture.
+|![SIMD operations](./img/SIMD%20operations.png)|
+|--|
+|<div style="text-align: center"><small>As seen here, you can do operations on multiple floating point numbers.</small></div>|
 
 ### FP basics
 
@@ -42,11 +50,11 @@ double dadd(double x, double y){
 ```
 
 ```asm
-fadd: ;x in %xmm0, y in %xmm1
+fadd:   ;x in %xmm0, y in %xmm1
     addss %xmm1, %xmm0
     ret
 
-dadd: ;x in %xmm0, y in %xmm1
+dadd:   ;x in %xmm0, y in %xmm1
     addsd %xmm1, %xmm0
     ret
 ```
@@ -57,7 +65,8 @@ Note that the last letter in adds**s** and adds**d** stands for single and doubl
 
 - Integer (and pointer) arguments passed in regular registers
 - FP arguments passed in %xmm0, %xmm1...
-- Different mov instructions for xmm registers, and memory to xmm registers
+- Different mov instructions to move between xmm registers, and memory to xmm registers
+
 
 ```c
 double dincr(double *p, double v)
@@ -68,16 +77,31 @@ double dincr(double *p, double v)
 }
 ```
 
+
 ```asm
-dincr: ; p in %rdi, v in %xmm0
-movapd %xmm0, %xmm1 ; Copy v
-movsd (%rdi), %xmm0 ; x = *p
-addsd %xmm0, %xmm1 ; t = x + v
-movsd %xmm1, (%rdi) ; *p = t
+dincr:  ; p in %rdi, v in %xmm0
+movapd %xmm0, %xmm1     ; Copy v
+movsd (%rdi), %xmm0     ; x = *p
+addsd %xmm0, %xmm1      ; t = x + v
+movsd %xmm1, (%rdi)     ; *p = t
 ret
 ```
 
-TODO add the full list
+There a lot of different FP operations.
+- Comparison: `ucomiss` and `ucomisd`. These set the condition codes.
+- To set XMM0 to 0, use: `xorpd %xmm0, %xmm0`. To use any other constant value, load from memory.
+
+# x86-64 Linux Memory Layout
+
+- Stack (8MB)
+- Heap (dynamically allocated)
+- Data (statically allocated)
+    - global variables, static variables, string constants
+- Text / Shared Libraries
+    - Executable instructions
+    - Read-only
+
+![stack diagram (I had to rotate it to print it on paper)](./img/stack_diagram_1.png)
 
 ## Memory allocation example
 
@@ -86,8 +110,7 @@ char big_array[1L<<24]; /* 16 MB */
 char huge_array[1L<<31]; /* 2 GB */
 int global = 0;
 int useless() { return 0; }
-int main ()
-{
+int main (){
     void *p1, *p2, *p3, *p4;
     int local = 0;
     p1 = malloc(1L << 28); /* 256 MB */
@@ -103,7 +126,23 @@ int main ()
 //main and useless in text part
 ```
 
-TODO add image (2)
+![diagram](./img/stack_diagram_2.png)
+
+
+## Memory State During a Function Call
+
+During a function call, the stack frame has:
+
+-   Caller's stack frame:
+    -   Arguments 7, 8 ..
+-   Callee's stack frame (current):
+    -   Return address
+        - <small>pushed by `call` instruction</small>
+    -   `%rbp` -> old frame pointer
+        - <small> This is optional and does not exists for optimization levels > g </small>
+    -   Saved registers and Local variables
+
+![diagram (again sorry for rotated diagram)](./img/stack_diagram_3.png)
 
 # Buffer Overflow
 
@@ -116,7 +155,8 @@ typedef struct {
 } struct_t;
 
 double fun(int i) {
-    volatile struct_t s; // volatile keyword prevents compiler from optimizing
+    volatile struct_t s; 
+    // volatile keyword prevents compiler from optimizing
     s.d = 3.14;
     s.a[i] = 1073741824; /* Possibly out of bounds */
     return s.d;
@@ -133,7 +173,7 @@ fun(4) → 3.14
 fun(6) → Segmentation fault
 ```
 
-Explanation:
+Explenation:
 ![Explenation](./img/membug_example.png)
 
 ## Buffer Overflow in a Nutshell
@@ -169,6 +209,7 @@ char *gets(char *dest)
 
 - No way to limit the number of characters read.
 - Similar problem with other library functions.
+    - `strcpy`, `strcat` and `scanf`, `fscanf`, `sscanf` when given the `%s` argument are vulnerable to this.
 
 Example:
 
@@ -212,16 +253,22 @@ call_echo:
 
 By overriding stack, we can even change the return address of the function!
 
-TODO add images
+|![buffer overflow](./img/buffer_overflow.png)|
+|--|
+|<small>Here, in the last scenario, the code might work, but the control might return to another function instead of the caller.</small>|
 
 ## Why is buffer overflow a problem?
 
 Attackers can overwrite interesting data.
 
 Simplest form (sometimes called "stack smashing")
-- Try to change the return address of a function
+- Try to change the return address of a function by putting long input inside bounded arrays.
+- Change the return address.
 
 # Code injection attacks
+
+- Put the code you want to execute inside stack (via input etc).
+- Change the return address to the stack address of the code you put in. 
 
 # Avoiding
 
@@ -234,19 +281,59 @@ Simplest form (sometimes called "stack smashing")
 
 - Non executable code segments
 
-TODO HERE
-
 ## Stack canaries
 
 Place a special value "canary" on stack beyond the buffer, and check it before returning from function.
 
 GCC implementation:
--fstack-protector
-
+- `-fstack-protector`
 - Now the default
 
 Something like `fs:0x28` (0x28 is the offset of the canary)
 
-TODO add asm code
+### Setting up canary
+
+```nasm
+fnc:
+    ...
+    movq %fs:40, %rax   ; Get canary
+    movq %rax, 8(%rsp)  ; Place on stack
+    xorl %eax, %eax     ; Erase canary
+    ...
+```
+
+### Checking canary
+
+```nasm
+fnc:
+...
+    movq 8(%rsp), %rax      ; Retrieve from stack
+    xorq %fs:40, %rax       ; Compare to canary
+    je .L6                  ; If same, OK
+    call __stack_chk_fail   ; FAIL
+.L6:
+    ...
+```
 
 # Return oriented programming attacks
+
+The new protections mentioned above made stack smashing hard.
+
+Hackers can use ROS, but it is much harder.
+
+Constructs programs from *gadgets*, by using existing code inside the executable part in the memory, we can run our desired code. 
+
+By jumping only *halfway* into an instruction, we can turn it to a *new* instruction.
+
+This does not overcome stack canaries.
+
+## Example
+
+```nasm
+<setval>:
+    4004d9: c7 07 d4 48 89 c7   movl $0xc78948d4, (%rdi)
+    4004df: c3                  retq
+```
+
+If we know `48 89 c7` is assembled to `movq %rax, %rdi`, we can use `0x4004dc` as our gadget address. 
+
