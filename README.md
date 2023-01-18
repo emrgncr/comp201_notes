@@ -30,3 +30,4 @@ You can find the lecture notes here, I guess I will update them ocationally.
 23) [Lec 23, Cache Memories, Associativity](./lec23.md)
 24) [Lec 24, Optimization](./lec24.md)
 25) [Lec 25, Linking](./lec25.md)
+26) [Lec 26, Heap, implicit free list](./lec26.md)
