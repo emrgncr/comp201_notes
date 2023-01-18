@@ -72,7 +72,7 @@ C/B = 8
 | t = 16 - 4 - 3 = 9 | t = 16 - 4 - 2 = 10| t = 16 - 4 - 1 = 11
 | block offset = `0011` = `0x3` | block offset = `0011` = `0x3` |block offset = `0011` = `0x3`
 | index = `011` = `0x3` | index = `11` = `0x3`|index = `1` = `0x1`
-| tag = `0 0011 0000` = `0x30` | tag = `00 0011 000` = `0x18`|tag = `000 0011 00` = `0xC`
+| tag = `0 0011 0000` = `0x030` | tag = `0 0001 1000` = `0x018`|tag = `0 0000 1100` = `0x00C`
 
 
 <small>the calculations for 2 way and 4 way might be wrong because I trusted github-copilot on those</small>
