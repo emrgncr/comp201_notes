@@ -29,3 +29,4 @@ You can find the lecture notes here, I guess I will update them ocationally.
 22) [Lec 22, Cache Memories, Locality](./lec22.md)
 23) [Lec 23, Cache Memories, Associativity](./lec23.md)
 24) [Lec 24, Optimization](./lec24.md)
+25) [Lec 25, Linking](./lec25.md)
