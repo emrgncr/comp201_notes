@@ -8,25 +8,176 @@ All caching depends on the locality.
     - Focus on the inner loops of the core functions
 
 - Minimize the misses in the inner loops
-    - Repeated references to variables
-    - Stride-1 reference patterns are good (immediate next element)
+    - Repeated references to variables (temporal locality)
+    - Stride-1 reference patterns are good (immediate next element) (spatial locality)
 
 ## Rearranging loops (exploit spatial locality)
 
 ### Example: Matrix Multiplication
 
+#### i j k
+
 $$
-c_{ij} = \sum
+c_{ij} = \sum_{k=1}^n a_{ij} \times b_{kj}
 $$
 
-Multiply NxN matrices
-Matrix elements are doubles
+Description:
+- Multiply N x N matrices
+- Matrix elements are doubles
+- N reads per source element
+- N values summed up per destination
+
+```c
+/*ijk*/
+for(i = 0; i< N; i++){
+    for(j = 0; j < N; j++){
+        sum = 0.0;
+        for(k = 0; k < N; k++){
+            sum += a[i][k] * b[k][j];
+        }
+        c[i][j] = sum;
+    }
+}
+```
+
+![case jki](./img/matrix_jik.png)
+
+##### Miss rate analysis
+
+- Assume block size = 32 bytes (4 doubles)
+- N is very large
+- Cache is not big enough to hold multiple rows
+
+**We only consider the innermost loop:** `sum += a[i][k] * b[k][j];`
+
+- Miss rate for A:
+    - Since a single block can hold 4 doubles and A is stride-1, we have .25 miss rate.
+- Miss rate for B:
+    - Because B's row changes each iteration (jumps over multiple elements), we have a miss rate of 1.
+- Miss rate for C:
+    - Since C is not referenced at all in the inner most loop, we have a miss rate of 0.
+
+#### k i j
+
+```c
+/*kij*/
+for(k = 0; k < N; k++){
+    for(i = 0; i < N; i++){
+        r = a[i][j];
+        for(j = 0; j < N; j++){
+            c[i][j] += r * b[k][j];
+        }
+    }
+}
+```
+
+![case jki](./img/matrix_kij.png)
+
+##### Miss rate analysis
+
+- Miss rate for A:
+    - Since A is not referenced at all in the inner most loop, we have a miss rate of 0.
+- Miss rate for B:
+    - Since B is stride-1, we have a miss rate of .25.
+- Miss rate for C:
+    - Since C is stride-1, we have a miss rate of .25.
+
+`i k j` order is similar to `k i j` order.
+
+#### j k i
+
+```c
+/*jki*/
+for(j = 0; j < N; j++){
+    for(k = 0; k < N; k++){
+        r = b[k][j];
+        for(i = 0; i < N; i++){
+            c[i][j] += a[i][k] * r;
+        }
+    }
+}
+```
+
+![case jki](./img/matrix_kji.png)
+
+##### Miss rate analysis
+
+- Miss rate for A:
+    - Since A's row changes each iteration (jumps over multiple elements), we have a miss rate of 1.
+- Miss rate for B:
+    - Since B is not referenced at all in the inner most loop, we have a miss rate of 0.
+- Miss rate for C:
+    - Since C's row changes each iteration (jumps over multiple elements), we have a miss rate of 1.
+
+This is the worst case. `k j i` order is also similar to this.
+
 
 ## Using blocking (exploit temporal locality)
 
+- Matrix elements are doubles
+- Cache block size = 64 bytes (8 doubles)
+- Cache size << n
 
+### Without blocking
 
+```c
+c = (double *) calloc(sizeof(double), n*n);
+/* Multiply n x n matrices a and b */
+void mmm(double *a, double *b, double *c, int n) {
+    int i, j, k;
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
+            for (k = 0; k < n; k++)
+                c[i*n + j] += a[i*n + k] * b[k*n + j];
+}
+```
 
+First iteration: n/8 + n = 9/8 n misses.
+
+|![after cache first iter](./img/after_cache_first_iter.png)|
+|-|
+|<center>Cache after the first iteration</center>|
+
+Similarly, second iteration also has n/8 + n = 9/8 n misses.
+
+So in total, we have 9/8 n^3 misses.
+
+### With blocking
+
+```c
+c = (double *) calloc(sizeof(double), n*n);
+/* Multiply n x n matrices a and b */
+void mmm(double *a, double *b, double *c, int n) {
+int i, j, k;
+for (i = 0; i < n; i+=B)
+for (j = 0; j < n; j+=B)
+for (k = 0; k < n; k+=B)
+/* B x B mini matrix multiplications */
+    for (i1 = i; i1 < i+B; i++)
+    for (j1 = j; j1 < j+B; j++)
+    for (k1 = k; k1 < k+B; k++)
+        c[i1*n+j1] += a[i1*n + k1]*b[k1*n + j1];
+}
+```
+
+![blocked matrix multiplication visualization](./img/blocked_matmul.png)
+
+Assume that 3 blocks fit into cache: 3B^2 < C
+
+First iteration: 
+- $B^2 / 8$ misses for each blocks
+- $2n/B * B^2 / 8 = nB / 4$ (ommitting C)
+
+|![after cache first iter](./img/matmul_blocked_after_cache.png)|
+|-|
+|<center>Cache after the first iteration</center>|
+
+Total misses: (n^2 / B^2) * nB / 4 = n^3 / 4B
+
+- No Blocking: ${9\over{8}} \times n^3$
+- Blocking: ${1 \over 4B} \times n^3$
+
+- We should take largest possible B such that $3B^2 < C$
 
 # Optimization
 
@@ -40,9 +191,10 @@ Matrix elements are doubles
 
 ## gcc optimization
 
-```sh
-gcc -O0
-gcc -O2
+```bash
+gcc -O0     # literal translation of C
+gcc -O2     # enable most optimizations
+gcc -Og     # enable optimizations that do not interfere with debugging
 gcc -O3     # more aggressive but trades for file size
 gcc -Os     # optimize for size
 gcc -Ofast  # ignore conventions
@@ -50,8 +202,18 @@ gcc -Ofast  # ignore conventions
 
 ### gcc optimizations
 
+GCC optimizations:
+-   Constant folding
+-   Common subexpression elimination
+-   Dead code elimination
+-   Strength reduction
+-   Code motion
+-   Loop Unrolling
+-   Tail Recursion
+
+Gcc optimizations target:
 -   Static instruction count
--   Dynammic instruction count
+-   Dynamic instruction count
 -   Cycle count / execution time
 
 
@@ -63,7 +225,9 @@ gcc pre-calculates constants at compile-time where possible.
 int seconds = 60 * 60 * 24 * n_days;
 ```
 
-Compiler pre-calculates `60 * 60 *24 berfore hand`
+Compiler pre-calculates `60 * 60 *24 before hand`
+
+Since compiler pre-calculates constants, we should try to write our code more readable.
 
 ```c
 int fold(int param){
@@ -75,7 +239,43 @@ int fold(int param){
 }
 ```
 
-TODO add assm codes
+Before optimization (O0):
+```nasm
+fold:
+    push %rbp
+    push %rbx
+    sub $0x8,%rsp
+    mov %edi,%ebp
+    movsd 0xda(%rip),%xmm0
+    callq <sqrt@plt>
+    cvttsd2si %xmm0,%ecx
+    imul $0x107,%ebp,%ebp
+    mov $0x15,%eax
+    cltd
+    idiv %ecx
+    lea 0x107(%rax),%ebx
+    mov $0x400704,%edi
+    callq <strlen@plt>
+    imul $0x523,%rax,%rax
+    movslq %ebx,%rbx
+    lea -0x37(%rax,%rbx,1),%rax
+    shr $0x2,%rax
+    add %ebp,%eax
+    add $0x8,%rsp
+    pop %rbx
+    pop %rbp
+    c3 retq
+```
+
+With optimization (O2):
+
+```nasm
+fold:
+    imul $0x107,%edi,%eax
+    add $0x6a5,%eax
+    retq
+    nopl 0x0(%rax)
+```
 
 #### Common subexpression elimination
 
@@ -87,7 +287,15 @@ int b = param1 * (param2 + 0x201) + a;
 return a * (param2 + 0x201) + b * (param2 + 0x201);
 ```
 
-TODO add asm code
+```nasm
+subexp:
+add $0x201,%esi
+imul %esi,%edi
+lea (%rdi,%rsi,2),%eax
+imul %esi,%eax
+retq
+```
+
 This optimization is even done with -O0!
 
 #### Dead Code
@@ -115,6 +323,26 @@ if(param1 == 0){
 
 Strength reduction changes divide to multiply, multiply to add/shift, and mod to AND to avoid using costly instructions.
 
+```c
+unsigned udiv19(unsigned arg){
+    return arg/19;
+}
+```
+
+```nasm
+udiv19:
+    mov eax, edi
+    mov edx, 2938661835
+    imul rax, rdx
+    shr rax, 32
+    sub edi, eax
+    shr edi
+    add eax, edi
+    shr eax, 4
+    ret
+```
+:moyai:
+
 #### Code motion
 
 Moves code outside of loops if possible.
@@ -140,6 +368,7 @@ long factorial(int n){
     }
 }
 ```
+<small> this is not tail recursion </small>
 
 **Tail Recursion:** Final action of a recursive call.
 
@@ -175,7 +404,7 @@ for(int i = 0; i<= n-4; i+=4){
 } //after the loop handle any leftovers
 ```
 
-### limitations of gcc optimizations
+### Limitations of gcc optimizations
 
 GCC can't optimize everything! 
 
@@ -189,8 +418,9 @@ int char_sum(char* s){
 }
 ```
 
-What is the bottleneck? strlen is called every time
-Code motion moves strlen outside of the loop
+What is the bottleneck? 
+- strlen is called every time
+- Code motion moves strlen outside of the loop
 
 ```c
 int char_sum(char* s){
@@ -204,16 +434,16 @@ int char_sum(char* s){
 }
 ```
 
-Here, because the string changes, gcc can't move strlen outside of the loop.
+Here, because the string (possibly) changes, gcc can't move strlen outside of the loop.
 
 ## Optimizing the code
 
 - Explore various optimizations to reduce instruction count and runtime.
-
     - More efficent big-O
-    - Use callgrind to find bottlenecks
-    TODO
-
+    - Explore other ways to reduce instruction time
+        - Use callgrind to find bottlenecks
+        - Optimize with -O2 and -O3
+        
 ### Compiler optimization
 
 Why not just compile with -O2?
