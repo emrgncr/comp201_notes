@@ -31,3 +31,4 @@ You can find the lecture notes here, I guess I will update them ocationally.
 24) [Lec 24, Optimization](./lec24.md)
 25) [Lec 25, Linking](./lec25.md)
 26) [Lec 26, Heap, implicit free list](./lec26.md)
+27) [Lec 27, Explicit allocator](./lec27.md)
