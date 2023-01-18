@@ -1,0 +1,627 @@
+<!DOCTYPE html><html><head>
+      <title>lec20</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="security-vulnerabilities">Security vulnerabilities</h1>
+
+<h3 class="mume-header" id="back-to-structs-last-lecturelec19md">Back to structs: <a href="./lec19.md">(last lecture)</a></h3>
+
+<p>When defining structs, to waste less space, define the largest data type first, then the smaller ones. This way, we will have less padding inside the struct.</p>
+<h2 class="mume-header" id="floating-point">Floating Point</h2>
+
+<ul>
+<li>We are using SSE3.
+<ul>
+<li>The newest version is AVX that is similar to SSE</li>
+</ul>
+</li>
+</ul>
+<p>In order to deal with floating point numbers, we have 16 more registers each 16 bytes (XMM registers).</p>
+<p>You can treat these registers as:</p>
+<ul>
+<li>16 single byte integers</li>
+<li>8 16-bit integers</li>
+<li>4 32-bit integers</li>
+<li>4 single-presicion floating point numbers</li>
+<li>2 double-presicion floating point numbers</li>
+<li>1 single-presicion floating point number</li>
+<li>2 double-presicion floating point numbers</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="./img/XMM%20regiisters.png" alt="XMM registers"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div style="text-align: center"><small>XMM registers</small></div></td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="simd-operations">SIMD operations</h2>
+
+<p>If we have 4 single-presicion floating point numbers, we can do 4 operations at the same time.</p>
+<table>
+<thead>
+<tr>
+<th><img src="./img/SIMD%20operations.png" alt="SIMD operations"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><div style="text-align: center"><small>As seen here, you can do operations on multiple floating point numbers.</small></div></td>
+</tr>
+</tbody>
+</table>
+<h3 class="mume-header" id="fp-basics">FP basics</h3>
+
+<ul>
+<li>Arguments passed in %xmm0, %xmm1...</li>
+<li>Return resulted in %xmm0</li>
+<li>All xmm registers are caller-saved</li>
+</ul>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-float">float</span> <span class="token function">fadd</span><span class="token punctuation">(</span><span class="token keyword keyword-float">float</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-float">float</span> y<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> x <span class="token operator">+</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-double">double</span> <span class="token function">dadd</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> x<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> y<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> x <span class="token operator">+</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="asm" class="language-asm"><code>fadd:   ;x in %xmm0, y in %xmm1
+    addss %xmm1, %xmm0
+    ret
+
+dadd:   ;x in %xmm0, y in %xmm1
+    addsd %xmm1, %xmm0
+    ret
+</code></pre><p>Note that the last letter in adds<strong>s</strong> and adds<strong>d</strong> stands for single and double precision.</p>
+<h3 class="mume-header" id="fp-memory-referencing">FP Memory Referencing</h3>
+
+<ul>
+<li>Integer (and pointer) arguments passed in regular registers</li>
+<li>FP arguments passed in %xmm0, %xmm1...</li>
+<li>Different mov instructions to move between xmm registers, and memory to xmm registers</li>
+</ul>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-double">double</span> <span class="token function">dincr</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token operator">*</span>p<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> v<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-double">double</span> x <span class="token operator">=</span> <span class="token operator">*</span>p<span class="token punctuation">;</span>
+    <span class="token operator">*</span>p <span class="token operator">=</span> x <span class="token operator">+</span> v<span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="asm" class="language-asm"><code>dincr:  ; p in %rdi, v in %xmm0
+movapd %xmm0, %xmm1     ; Copy v
+movsd (%rdi), %xmm0     ; x = *p
+addsd %xmm0, %xmm1      ; t = x + v
+movsd %xmm1, (%rdi)     ; *p = t
+ret
+</code></pre><p>There a lot of different FP operations.</p>
+<ul>
+<li>Comparison: <code>ucomiss</code> and <code>ucomisd</code>. These set the condition codes.</li>
+<li>To set XMM0 to 0, use: <code>xorpd %xmm0, %xmm0</code>. To use any other constant value, load from memory.</li>
+</ul>
+<h1 class="mume-header" id="x86-64-linux-memory-layout">x86-64 Linux Memory Layout</h1>
+
+<ul>
+<li>Stack (8MB)</li>
+<li>Heap (dynamically allocated)</li>
+<li>Data (statically allocated)
+<ul>
+<li>global variables, static variables, string constants</li>
+</ul>
+</li>
+<li>Text / Shared Libraries
+<ul>
+<li>Executable instructions</li>
+<li>Read-only</li>
+</ul>
+</li>
+</ul>
+<p><img src="./img/stack_diagram_1.png" alt="stack diagram (I had to rotate it to print it on paper)"></p>
+<h2 class="mume-header" id="memory-allocation-example">Memory allocation example</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-char">char</span> big_array<span class="token punctuation">[</span><span class="token number">1L</span><span class="token operator">&lt;&lt;</span><span class="token number">24</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/* 16 MB */</span>
+<span class="token keyword keyword-char">char</span> huge_array<span class="token punctuation">[</span><span class="token number">1L</span><span class="token operator">&lt;&lt;</span><span class="token number">31</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/* 2 GB */</span>
+<span class="token keyword keyword-int">int</span> global <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">useless</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-void">void</span> <span class="token operator">*</span>p1<span class="token punctuation">,</span> <span class="token operator">*</span>p2<span class="token punctuation">,</span> <span class="token operator">*</span>p3<span class="token punctuation">,</span> <span class="token operator">*</span>p4<span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> local <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    p1 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token number">28</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 256 MB */</span>
+    p2 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 256 B */</span>
+    p3 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 4 GB */</span>
+    p4 <span class="token operator">=</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">/* 256 B */</span>
+    <span class="token comment">/* Some print statements ... */</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">//local in stack</span>
+<span class="token comment">//p1..p4 in heap</span>
+<span class="token comment">//big_array - huge_array in data segment</span>
+<span class="token comment">//main and useless in text part</span>
+</pre><p><img src="./img/stack_diagram_2.png" alt="diagram"></p>
+<h2 class="mume-header" id="memory-state-during-a-function-call">Memory State During a Function Call</h2>
+
+<p>During a function call, the stack frame has:</p>
+<ul>
+<li>Caller&apos;s stack frame:
+<ul>
+<li>Arguments 7, 8 ..</li>
+</ul>
+</li>
+<li>Callee&apos;s stack frame (current):
+<ul>
+<li>Return address
+<ul>
+<li><small>pushed by <code>call</code> instruction</small></li>
+</ul>
+</li>
+<li><code>%rbp</code> -&gt; old frame pointer
+<ul>
+<li><small> This is optional and does not exists for optimization levels &gt; g </small></li>
+</ul>
+</li>
+<li>Saved registers and Local variables</li>
+</ul>
+</li>
+</ul>
+<p><img src="./img/stack_diagram_3.png" alt="diagram (again sorry for rotated diagram)"></p>
+<h1 class="mume-header" id="buffer-overflow">Buffer Overflow</h1>
+
+<h2 class="mume-header" id="memory-referencing-bug-example">Memory Referencing Bug Example</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-typedef">typedef</span> <span class="token keyword keyword-struct">struct</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> a<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-double">double</span> d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token class-name">struct_t</span><span class="token punctuation">;</span>
+
+<span class="token keyword keyword-double">double</span> <span class="token function">fun</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-volatile">volatile</span> <span class="token class-name">struct_t</span> s<span class="token punctuation">;</span> 
+    <span class="token comment">// volatile keyword prevents compiler from optimizing</span>
+    s<span class="token punctuation">.</span>d <span class="token operator">=</span> <span class="token number">3.14</span><span class="token punctuation">;</span>
+    s<span class="token punctuation">.</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1073741824</span><span class="token punctuation">;</span> <span class="token comment">/* Possibly out of bounds */</span>
+    <span class="token keyword keyword-return">return</span> s<span class="token punctuation">.</span>d<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Sample result (system spesific):</p>
+<pre data-role="codeBlock" data-info class="language-"><code>fun(0) &#x2192; 3.14
+fun(1) &#x2192; 3.14
+fun(2) &#x2192; 3.1399998664856
+fun(3) &#x2192; 2.00000061035156
+fun(4) &#x2192; 3.14
+fun(6) &#x2192; Segmentation fault
+</code></pre><p>Explenation:<br>
+<img src="./img/membug_example.png" alt="Explenation"></p>
+<h2 class="mume-header" id="buffer-overflow-in-a-nutshell">Buffer Overflow in a Nutshell</h2>
+
+<ul>
+<li>
+<p>C does not check array bounds</p>
+<ul>
+<li>Many Unix/Linux/C functions don&apos;t check argument sizes,</li>
+<li>Allows overflowing of buffers</li>
+</ul>
+</li>
+<li>
+<p>&quot;Buffer Overflow&quot;: writing past an array</p>
+</li>
+<li>
+<p>Characteristics of the traditional Linux memory layout provide<br>
+opportunities for malicious programs</p>
+<ul>
+<li>Stack grows &#x201C;backwards&#x201D; in memory</li>
+<li>Data and instructions both stored in the same memory</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="string-library-code">String library code</h2>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token comment">/* Get string from stdin */</span>
+<span class="token keyword keyword-char">char</span> <span class="token operator">*</span><span class="token function">gets</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span> <span class="token operator">*</span>dest<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> c <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>p <span class="token operator">=</span> dest<span class="token punctuation">;</span>
+    <span class="token keyword keyword-while">while</span> <span class="token punctuation">(</span>c <span class="token operator">!=</span> <span class="token constant">EOF</span> <span class="token operator">&amp;&amp;</span> c <span class="token operator">!=</span> <span class="token string">&apos;\n&apos;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">*</span>p<span class="token operator">++</span> <span class="token operator">=</span> c<span class="token punctuation">;</span>
+        c <span class="token operator">=</span> <span class="token function">getchar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">*</span>p <span class="token operator">=</span> <span class="token string">&apos;\0&apos;</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> dest<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><ul>
+<li>No way to limit the number of characters read.</li>
+<li>Similar problem with other library functions.
+<ul>
+<li><code>strcpy</code>, <code>strcat</code> and <code>scanf</code>, <code>fscanf</code>, <code>sscanf</code> when given the <code>%s</code> argument are vulnerable to this.</li>
+</ul>
+</li>
+</ul>
+<p>Example:</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token comment">/* Echo Line */</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">echo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword keyword-char">char</span> buf<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">/* Way too small! */</span>
+    <span class="token function">gets</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-void">void</span> <span class="token function">call_echo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">echo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>If you type in more than 4 characters, you will get a segmentation fault.</p>
+<p>Disassembly:</p>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>echo:
+00000000004006cf &lt;echo&gt;:
+4006cf: 48 83 ec 18         sub $0x18,%rsp 
+;open 24 bytes on stack (4 for buf, 20 unused)
+4006d3: 48 89 e7            mov %rsp,%rdi
+4006d6: e8 a5 ff ff ff      callq 400680 &lt;gets&gt;
+4006db: 48 89 e7            mov %rsp,%rdi
+4006de: e8 3d fe ff ff      callq 400520 &lt;puts@plt&gt;
+4006e3: 48 83 c4 18         add $0x18,%rsp
+4006e7: c3                  retq
+
+call_echo:
+4006e8: 48 83 ec 08         sub $0x8,%rsp
+4006ec: b8 00 00 00 00      mov $0x0,%eax
+4006f1: e8 d9 ff ff ff      callq 4006cf &lt;echo&gt;
+4006f6: 48 83 c4 08         add $0x8,%rsp
+4006fa: c3                  retq
+</code></pre><p>By overriding stack, we can even change the return address of the function!</p>
+<table>
+<thead>
+<tr>
+<th><img src="./img/buffer_overflow.png" alt="buffer overflow"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><small>Here, in the last scenario, the code might work, but the control might return to another function instead of the caller.</small></td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="why-is-buffer-overflow-a-problem">Why is buffer overflow a problem?</h2>
+
+<p>Attackers can overwrite interesting data.</p>
+<p>Simplest form (sometimes called &quot;stack smashing&quot;)</p>
+<ul>
+<li>Try to change the return address of a function by putting long input inside bounded arrays.</li>
+<li>Change the return address.</li>
+</ul>
+<h1 class="mume-header" id="code-injection-attacks">Code injection attacks</h1>
+
+<ul>
+<li>Put the code you want to execute inside stack (via input etc).</li>
+<li>Change the return address to the stack address of the code you put in.</li>
+</ul>
+<h1 class="mume-header" id="avoiding">Avoiding</h1>
+
+<ul>
+<li>
+<p>Use fgets instead of gets strncpy instead of strcpy</p>
+</li>
+<li>
+<p>dont use scanf with %s conversion specifier</p>
+<ul>
+<li>use fgets to read the string</li>
+<li>Or use %ns where n is a suitable integer</li>
+</ul>
+</li>
+<li>
+<p>Randomized stack offsets</p>
+</li>
+<li>
+<p>Non executable code segments</p>
+</li>
+</ul>
+<h2 class="mume-header" id="stack-canaries">Stack canaries</h2>
+
+<p>Place a special value &quot;canary&quot; on stack beyond the buffer, and check it before returning from function.</p>
+<p>GCC implementation:</p>
+<ul>
+<li><code>-fstack-protector</code></li>
+<li>Now the default</li>
+</ul>
+<p>Something like <code>fs:0x28</code> (0x28 is the offset of the canary)</p>
+<h3 class="mume-header" id="setting-up-canary">Setting up canary</h3>
+
+<pre data-role="codeBlock" data-info="nasm" class="language-nasm"><span class="token label function">fnc:</span>
+    ...
+    movq <span class="token operator">%</span><span class="token register variable">fs</span>:<span class="token number">40</span>, <span class="token operator">%</span><span class="token register variable">rax</span>   <span class="token comment">; Get canary</span>
+    movq <span class="token operator">%</span><span class="token register variable">rax</span>, <span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rsp</span>)  <span class="token comment">; Place on stack</span>
+    xorl <span class="token operator">%</span><span class="token register variable">eax</span>, <span class="token operator">%</span><span class="token register variable">eax</span>     <span class="token comment">; Erase canary</span>
+    ...
+</pre><h3 class="mume-header" id="checking-canary">Checking canary</h3>
+
+<pre data-role="codeBlock" data-info="nasm" class="language-nasm"><span class="token label function">fnc:</span>
+...
+    movq <span class="token number">8</span>(<span class="token operator">%</span><span class="token register variable">rsp</span>), <span class="token operator">%</span><span class="token register variable">rax</span>      <span class="token comment">; Retrieve from stack</span>
+    xorq <span class="token operator">%</span><span class="token register variable">fs</span>:<span class="token number">40</span>, <span class="token operator">%</span><span class="token register variable">rax</span>       <span class="token comment">; Compare to canary</span>
+    je .L6                  <span class="token comment">; If same, OK</span>
+    call __stack_chk_fail   <span class="token comment">; FAIL</span>
+<span class="token label function">.L6:</span>
+    ...
+</pre><h1 class="mume-header" id="return-oriented-programming-attacks">Return oriented programming attacks</h1>
+
+<p>The new protections mentioned above made stack smashing hard.</p>
+<p>Hackers can use ROS, but it is much harder.</p>
+<p>Constructs programs from <em>gadgets</em>, by using existing code inside the executable part in the memory, we can run our desired code.</p>
+<p>By jumping only <em>halfway</em> into an instruction, we can turn it to a <em>new</em> instruction.</p>
+<p>This does not overcome stack canaries.</p>
+<h2 class="mume-header" id="example">Example</h2>
+
+<pre data-role="codeBlock" data-info="nasm" class="language-nasm"><span class="token operator">&lt;</span>setval<span class="token operator">&gt;</span>:
+    4004d9: c7 <span class="token number">07</span> d4 <span class="token number">48</span> <span class="token number">89</span> c7   movl <span class="token operator">$</span><span class="token number">0xc78948d4</span>, (<span class="token operator">%</span><span class="token register variable">rdi</span>)
+    4004df: c3                  retq
+</pre><p>If we know <code>48 89 c7</code> is assembled to <code>movq %rax, %rdi</code>, we can use <code>0x4004dc</code> as our gadget address.</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

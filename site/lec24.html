@@ -1,0 +1,709 @@
+<!DOCTYPE html><html><head>
+      <title>lec24</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="caching">Caching</h1>
+
+<p>All caching depends on the locality.</p>
+<h1 class="mume-header" id="writing-cache-friendly-code">Writing cache friendly code</h1>
+
+<ul>
+<li>
+<p>Make the common case go fast</p>
+<ul>
+<li>Focus on the inner loops of the core functions</li>
+</ul>
+</li>
+<li>
+<p>Minimize the misses in the inner loops</p>
+<ul>
+<li>Repeated references to variables (temporal locality)</li>
+<li>Stride-1 reference patterns are good (immediate next element) (spatial locality)</li>
+</ul>
+</li>
+</ul>
+<h2 class="mume-header" id="rearranging-loops-exploit-spatial-locality">Rearranging loops (exploit spatial locality)</h2>
+
+<h3 class="mume-header" id="example-matrix-multiplication">Example: Matrix Multiplication</h3>
+
+<h4 class="mume-header" id="i-j-k">i j k</h4>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>c</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><munderover><mo>&#x2211;</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>a</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>&#xD7;</mo><msub><mi>b</mi><mrow><mi>k</mi><mi>j</mi></mrow></msub></mrow><annotation encoding="application/x-tex">c_{ij} = \sum_{k=1}^n a_{ij} \times b_{kj}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">ij</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.9535em;vertical-align:-1.3021em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6514em;"><span style="top:-1.8479em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">&#x2211;</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">n</span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:1.3021em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">ij</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#xD7;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">kj</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>Description:</p>
+<ul>
+<li>Multiply N x N matrices</li>
+<li>Matrix elements are doubles</li>
+<li>N reads per source element</li>
+<li>N values summed up per destination</li>
+</ul>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token comment">/*ijk*/</span>
+<span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sum <span class="token operator">=</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            sum <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">*</span> b<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> sum<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><p><img src="./img/matrix_jik.png" alt="case jki"></p>
+<h5 class="mume-header" id="miss-rate-analysis">Miss rate analysis</h5>
+
+<ul>
+<li>Assume block size = 32 bytes (4 doubles)</li>
+<li>N is very large</li>
+<li>Cache is not big enough to hold multiple rows</li>
+</ul>
+<p><strong>We only consider the innermost loop:</strong> <code>sum += a[i][k] * b[k][j];</code></p>
+<ul>
+<li>Miss rate for A:
+<ul>
+<li>Since a single block can hold 4 doubles and A is stride-1, we have .25 miss rate.</li>
+</ul>
+</li>
+<li>Miss rate for B:
+<ul>
+<li>Because B&apos;s row changes each iteration (jumps over multiple elements), we have a miss rate of 1.</li>
+</ul>
+</li>
+<li>Miss rate for C:
+<ul>
+<li>Since C is not referenced at all in the inner most loop, we have a miss rate of 0.</li>
+</ul>
+</li>
+</ul>
+<h4 class="mume-header" id="k-i-j">k i j</h4>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token comment">/*kij*/</span>
+<span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        r <span class="token operator">=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+=</span> r <span class="token operator">*</span> b<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><p><img src="./img/matrix_kij.png" alt="case jki"></p>
+<h5 class="mume-header" id="miss-rate-analysis-1">Miss rate analysis</h5>
+
+<ul>
+<li>Miss rate for A:
+<ul>
+<li>Since A is not referenced at all in the inner most loop, we have a miss rate of 0.</li>
+</ul>
+</li>
+<li>Miss rate for B:
+<ul>
+<li>Since B is stride-1, we have a miss rate of .25.</li>
+</ul>
+</li>
+<li>Miss rate for C:
+<ul>
+<li>Since C is stride-1, we have a miss rate of .25.</li>
+</ul>
+</li>
+</ul>
+<p><code>i k j</code> order is similar to <code>k i j</code> order.</p>
+<h4 class="mume-header" id="j-k-i">j k i</h4>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token comment">/*jki*/</span>
+<span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        r <span class="token operator">=</span> b<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            c<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">*</span> r<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><p><img src="./img/matrix_kji.png" alt="case jki"></p>
+<h5 class="mume-header" id="miss-rate-analysis-2">Miss rate analysis</h5>
+
+<ul>
+<li>Miss rate for A:
+<ul>
+<li>Since A&apos;s row changes each iteration (jumps over multiple elements), we have a miss rate of 1.</li>
+</ul>
+</li>
+<li>Miss rate for B:
+<ul>
+<li>Since B is not referenced at all in the inner most loop, we have a miss rate of 0.</li>
+</ul>
+</li>
+<li>Miss rate for C:
+<ul>
+<li>Since C&apos;s row changes each iteration (jumps over multiple elements), we have a miss rate of 1.</li>
+</ul>
+</li>
+</ul>
+<p>This is the worst case. <code>k j i</code> order is also similar to this.</p>
+<h2 class="mume-header" id="using-blocking-exploit-temporal-locality">Using blocking (exploit temporal locality)</h2>
+
+<ul>
+<li>Matrix elements are doubles</li>
+<li>Cache block size = 64 bytes (8 doubles)</li>
+<li>Cache size &lt;&lt; n</li>
+</ul>
+<h3 class="mume-header" id="without-blocking">Without blocking</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c">c <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">calloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n<span class="token operator">*</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* Multiply n x n matrices a and b */</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">mmm</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>b<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>c<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+                c<span class="token punctuation">[</span>i<span class="token operator">*</span>n <span class="token operator">+</span> j<span class="token punctuation">]</span> <span class="token operator">+=</span> a<span class="token punctuation">[</span>i<span class="token operator">*</span>n <span class="token operator">+</span> k<span class="token punctuation">]</span> <span class="token operator">*</span> b<span class="token punctuation">[</span>k<span class="token operator">*</span>n <span class="token operator">+</span> j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>First iteration: n/8 + n = 9/8 n misses.</p>
+<table>
+<thead>
+<tr>
+<th><img src="./img/after_cache_first_iter.png" alt="after cache first iter"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><center>Cache after the first iteration</center></td>
+</tr>
+</tbody>
+</table>
+<p>Similarly, second iteration also has n/8 + n = 9/8 n misses.</p>
+<p>So in total, we have 9/8 n^3 misses.</p>
+<h3 class="mume-header" id="with-blocking">With blocking</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c">c <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">calloc</span><span class="token punctuation">(</span><span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n<span class="token operator">*</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/* Multiply n x n matrices a and b */</span>
+<span class="token keyword keyword-void">void</span> <span class="token function">mmm</span><span class="token punctuation">(</span><span class="token keyword keyword-double">double</span> <span class="token operator">*</span>a<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>b<span class="token punctuation">,</span> <span class="token keyword keyword-double">double</span> <span class="token operator">*</span>c<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword keyword-int">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">;</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">+=</span>B<span class="token punctuation">)</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">+=</span>B<span class="token punctuation">)</span>
+<span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> k<span class="token operator">+=</span>B<span class="token punctuation">)</span>
+<span class="token comment">/* B x B mini matrix multiplications */</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>i1 <span class="token operator">=</span> i<span class="token punctuation">;</span> i1 <span class="token operator">&lt;</span> i<span class="token operator">+</span>B<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>j1 <span class="token operator">=</span> j<span class="token punctuation">;</span> j1 <span class="token operator">&lt;</span> j<span class="token operator">+</span>B<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token keyword keyword-for">for</span> <span class="token punctuation">(</span>k1 <span class="token operator">=</span> k<span class="token punctuation">;</span> k1 <span class="token operator">&lt;</span> k<span class="token operator">+</span>B<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+        c<span class="token punctuation">[</span>i1<span class="token operator">*</span>n<span class="token operator">+</span>j1<span class="token punctuation">]</span> <span class="token operator">+=</span> a<span class="token punctuation">[</span>i1<span class="token operator">*</span>n <span class="token operator">+</span> k1<span class="token punctuation">]</span><span class="token operator">*</span>b<span class="token punctuation">[</span>k1<span class="token operator">*</span>n <span class="token operator">+</span> j1<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p><img src="./img/blocked_matmul.png" alt="blocked matrix multiplication visualization"></p>
+<p>Assume that 3 blocks fit into cache: 3B^2 &lt; C</p>
+<p>First iteration:</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>B</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">B^2 / 8</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">/8</span></span></span></span> misses for each blocks</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>n</mi><mi mathvariant="normal">/</mi><mi>B</mi><mo>&#x2217;</mo><msup><mi>B</mi><mn>2</mn></msup><mi mathvariant="normal">/</mi><mn>8</mn><mo>=</mo><mi>n</mi><mi>B</mi><mi mathvariant="normal">/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">2n/B * B^2 / 8 = nB / 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">2</span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#x2217;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord">/8</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord">/4</span></span></span></span> (ommitting C)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><img src="./img/matmul_blocked_after_cache.png" alt="after cache first iter"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><center>Cache after the first iteration</center></td>
+</tr>
+</tbody>
+</table>
+<p>Total misses: (n^2 / B^2) * nB / 4 = n^3 / 4B</p>
+<ul>
+<li>
+<p>No Blocking: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>9</mn><mn>8</mn></mfrac><mo>&#xD7;</mo><msup><mi>n</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">{9\over{8}} \times n^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">8</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">9</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#xD7;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>Blocking: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>1</mn><mrow><mn>4</mn><mi>B</mi></mrow></mfrac><mo>&#xD7;</mo><msup><mi>n</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">{1 \over 4B} \times n^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">4</span><span class="mord mathnormal mtight" style="margin-right:0.05017em;">B</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">&#x200B;</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">&#xD7;</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>We should take largest possible B such that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><msup><mi>B</mi><mn>2</mn></msup><mo>&lt;</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">3B^2 &lt; C</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8532em;vertical-align:-0.0391em;"></span><span class="mord">3</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span></p>
+</li>
+</ul>
+<h1 class="mume-header" id="optimization">Optimization</h1>
+
+<ul>
+<li>Targeted, intentional optimizations alleviate bottlenecks and resut in big gains. But only optimize where necessary.</li>
+</ul>
+<p><strong>In Summary</strong></p>
+<ul>
+<li>If doing something is rare, and only done on small inputs, don&apos;t optimize it.</li>
+<li>If doing things alot or on big inputs, make it&apos;s big O cost reasonable</li>
+<li>let gcc do its magic</li>
+<li>optimize explicitly as a last resort</li>
+</ul>
+<h2 class="mume-header" id="gcc-optimization">gcc optimization</h2>
+
+<pre data-role="codeBlock" data-info="bash" class="language-bash">gcc -O0     <span class="token comment"># literal translation of C</span>
+gcc -O2     <span class="token comment"># enable most optimizations</span>
+gcc -Og     <span class="token comment"># enable optimizations that do not interfere with debugging</span>
+gcc -O3     <span class="token comment"># more aggressive but trades for file size</span>
+gcc -Os     <span class="token comment"># optimize for size</span>
+gcc -Ofast  <span class="token comment"># ignore conventions</span>
+</pre><h3 class="mume-header" id="gcc-optimizations">gcc optimizations</h3>
+
+<p>GCC optimizations:</p>
+<ul>
+<li>Constant folding</li>
+<li>Common subexpression elimination</li>
+<li>Dead code elimination</li>
+<li>Strength reduction</li>
+<li>Code motion</li>
+<li>Loop Unrolling</li>
+<li>Tail Recursion</li>
+</ul>
+<p>Gcc optimizations target:</p>
+<ul>
+<li>Static instruction count</li>
+<li>Dynamic instruction count</li>
+<li>Cycle count / execution time</li>
+</ul>
+<h4 class="mume-header" id="constant-folding">Constant folding</h4>
+
+<p>gcc pre-calculates constants at compile-time where possible.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-int">int</span> seconds <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">24</span> <span class="token operator">*</span> n_days<span class="token punctuation">;</span>
+</pre><p>Compiler pre-calculates <code>60 * 60 *24 before hand</code></p>
+<p>Since compiler pre-calculates constants, we should try to write our code more readable.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-int">int</span> <span class="token function">fold</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> param<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-char">char</span> arr<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> <span class="token number">0x107</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> b <span class="token operator">=</span> a <span class="token operator">*</span> <span class="token keyword keyword-sizeof">sizeof</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-int">int</span> c <span class="token operator">=</span> <span class="token function">sqrt</span><span class="token punctuation">(</span><span class="token number">2.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> a <span class="token operator">*</span> param <span class="token operator">+</span> <span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token number">0x15</span> <span class="token operator">/</span> c <span class="token operator">+</span> <span class="token function">strlen</span><span class="token punctuation">(</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">)</span> <span class="token operator">*</span> b <span class="token operator">-</span> <span class="token operator">*</span>x37<span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Before optimization (O0):</p>
+<pre data-role="codeBlock" data-info="nasm" class="language-nasm"><span class="token label function">fold:</span>
+    push <span class="token operator">%</span><span class="token register variable">rbp</span>
+    push <span class="token operator">%</span><span class="token register variable">rbx</span>
+    sub <span class="token operator">$</span><span class="token number">0x8</span>,<span class="token operator">%</span><span class="token register variable">rsp</span>
+    mov <span class="token operator">%</span><span class="token register variable">edi</span>,<span class="token operator">%</span><span class="token register variable">ebp</span>
+    movsd <span class="token number">0xda</span>(<span class="token operator">%</span>rip),<span class="token operator">%</span><span class="token register variable">xmm0</span>
+    callq <span class="token operator">&lt;</span>sqrt@plt<span class="token operator">&gt;</span>
+    cvttsd2si <span class="token operator">%</span><span class="token register variable">xmm0</span>,<span class="token operator">%</span><span class="token register variable">ecx</span>
+    imul <span class="token operator">$</span><span class="token number">0x107</span>,<span class="token operator">%</span><span class="token register variable">ebp</span>,<span class="token operator">%</span><span class="token register variable">ebp</span>
+    mov <span class="token operator">$</span><span class="token number">0x15</span>,<span class="token operator">%</span><span class="token register variable">eax</span>
+    cltd
+    idiv <span class="token operator">%</span><span class="token register variable">ecx</span>
+    lea <span class="token number">0x107</span>(<span class="token operator">%</span><span class="token register variable">rax</span>),<span class="token operator">%</span><span class="token register variable">ebx</span>
+    mov <span class="token operator">$</span><span class="token number">0x400704</span>,<span class="token operator">%</span><span class="token register variable">edi</span>
+    callq <span class="token operator">&lt;</span>strlen@plt<span class="token operator">&gt;</span>
+    imul <span class="token operator">$</span><span class="token number">0x523</span>,<span class="token operator">%</span><span class="token register variable">rax</span>,<span class="token operator">%</span><span class="token register variable">rax</span>
+    movslq <span class="token operator">%</span><span class="token register variable">ebx</span>,<span class="token operator">%</span><span class="token register variable">rbx</span>
+    lea <span class="token operator">-</span><span class="token number">0x37</span>(<span class="token operator">%</span><span class="token register variable">rax</span>,<span class="token operator">%</span><span class="token register variable">rbx</span>,<span class="token number">1</span>),<span class="token operator">%</span><span class="token register variable">rax</span>
+    shr <span class="token operator">$</span><span class="token number">0x2</span>,<span class="token operator">%</span><span class="token register variable">rax</span>
+    add <span class="token operator">%</span><span class="token register variable">ebp</span>,<span class="token operator">%</span><span class="token register variable">eax</span>
+    add <span class="token operator">$</span><span class="token number">0x8</span>,<span class="token operator">%</span><span class="token register variable">rsp</span>
+    pop <span class="token operator">%</span><span class="token register variable">rbx</span>
+    pop <span class="token operator">%</span><span class="token register variable">rbp</span>
+    c3 retq
+</pre><p>With optimization (O2):</p>
+<pre data-role="codeBlock" data-info="nasm" class="language-nasm"><span class="token label function">fold:</span>
+    imul <span class="token operator">$</span><span class="token number">0x107</span>,<span class="token operator">%</span><span class="token register variable">edi</span>,<span class="token operator">%</span><span class="token register variable">eax</span>
+    add <span class="token operator">$</span><span class="token number">0x6a5</span>,<span class="token operator">%</span><span class="token register variable">eax</span>
+    retq
+    nopl <span class="token number">0x0</span>(<span class="token operator">%</span><span class="token register variable">rax</span>)
+</pre><h4 class="mume-header" id="common-subexpression-elimination">Common subexpression elimination</h4>
+
+<p>prevents recalculation of the same value many times.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-int">int</span> a <span class="token operator">=</span> param2 <span class="token operator">+</span> <span class="token number">0x201</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> b <span class="token operator">=</span> param1 <span class="token operator">*</span> <span class="token punctuation">(</span>param2 <span class="token operator">+</span> <span class="token number">0x201</span><span class="token punctuation">)</span> <span class="token operator">+</span> a<span class="token punctuation">;</span>
+<span class="token keyword keyword-return">return</span> a <span class="token operator">*</span> <span class="token punctuation">(</span>param2 <span class="token operator">+</span> <span class="token number">0x201</span><span class="token punctuation">)</span> <span class="token operator">+</span> b <span class="token operator">*</span> <span class="token punctuation">(</span>param2 <span class="token operator">+</span> <span class="token number">0x201</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="nasm" class="language-nasm"><span class="token label function">subexp:</span>
+add <span class="token operator">$</span><span class="token number">0x201</span>,<span class="token operator">%</span><span class="token register variable">esi</span>
+imul <span class="token operator">%</span><span class="token register variable">esi</span>,<span class="token operator">%</span><span class="token register variable">edi</span>
+lea (<span class="token operator">%</span><span class="token register variable">rdi</span>,<span class="token operator">%</span><span class="token register variable">rsi</span>,<span class="token number">2</span>),<span class="token operator">%</span><span class="token register variable">eax</span>
+imul <span class="token operator">%</span><span class="token register variable">esi</span>,<span class="token operator">%</span><span class="token register variable">eax</span>
+retq
+</pre><p>This optimization is even done with -O0!</p>
+<h4 class="mume-header" id="dead-code">Dead Code</h4>
+
+<p>Dead code elimination removes the code that doesn&apos;t serve any purpose.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>param1 <span class="token operator">&lt;</span> param2 <span class="token operator">&amp;&amp;</span> param1 <span class="token operator">&gt;</span> param2<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>param1 <span class="token operator">==</span> param2<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    x <span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword keyword-else">else</span><span class="token punctuation">{</span>
+    x <span class="token operator">++</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>param1 <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token keyword keyword-else">else</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> param1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h4 class="mume-header" id="strength-reduction">Strength Reduction</h4>
+
+<p>Strength reduction changes divide to multiply, multiply to add/shift, and mod to AND to avoid using costly instructions.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-unsigned">unsigned</span> <span class="token function">udiv19</span><span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span> arg<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-return">return</span> arg<span class="token operator">/</span><span class="token number">19</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="nasm" class="language-nasm"><span class="token label function">udiv19:</span>
+    mov <span class="token register variable">eax</span>, <span class="token register variable">edi</span>
+    mov <span class="token register variable">edx</span>, <span class="token number">2938661835</span>
+    imul <span class="token register variable">rax</span>, <span class="token register variable">rdx</span>
+    shr <span class="token register variable">rax</span>, <span class="token number">32</span>
+    sub <span class="token register variable">edi</span>, <span class="token register variable">eax</span>
+    shr <span class="token register variable">edi</span>
+    add <span class="token register variable">eax</span>, <span class="token register variable">edi</span>
+    shr <span class="token register variable">eax</span>, <span class="token number">4</span>
+    ret
+</pre><p>&#x1F5FF;</p>
+<h4 class="mume-header" id="code-motion">Code motion</h4>
+
+<p>Moves code outside of loops if possible.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-for">for</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    sum <span class="token operator">+=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> foo <span class="token operator">*</span> <span class="token punctuation">(</span>bar <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Calculates <code>foo * (bar + 3)</code> outside of the loop.</p>
+<h4 class="mume-header" id="tail-recursion">Tail Recursion</h4>
+
+<p>Gcc identifies (sometimes) recursive patterns and converts them to iterative loops.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-long">long</span> <span class="token function">factorial</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword keyword-else">else</span><span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> n <span class="token operator">*</span> <span class="token function">factorial</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><p><small> this is not tail recursion </small></p>
+<p><strong>Tail Recursion:</strong> Final action of a recursive call.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-long">long</span> <span class="token function">factorial</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">,</span> <span class="token keyword keyword-long">long</span> acc<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> acc<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword keyword-else">else</span><span class="token punctuation">{</span>
+        <span class="token keyword keyword-return">return</span> <span class="token function">factorial</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> n <span class="token operator">*</span> acc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-long">long</span> <span class="token function">factorial</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-long">long</span> acc <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        acc <span class="token operator">*=</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> acc<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><h4 class="mume-header" id="loop-unrolling">Loop Unrolling</h4>
+
+<p>Do n iterations&apos;s worth of work per actual loop iteratipn so we can save ourselves from doing loop overhead (test and jump) every time.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-for">for</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span> n<span class="token operator">-</span><span class="token number">4</span><span class="token punctuation">;</span> i<span class="token operator">+=</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    sum <span class="token operator">+=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    sum <span class="token operator">+=</span> arr<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    sum <span class="token operator">+=</span> arr<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    sum <span class="token operator">+=</span> arr<span class="token punctuation">[</span>i<span class="token operator">+</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token comment">//after the loop handle any leftovers</span>
+</pre><h3 class="mume-header" id="limitations-of-gcc-optimizations">Limitations of gcc optimizations</h3>
+
+<p>GCC can&apos;t optimize everything!</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-int">int</span> <span class="token function">char_sum</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span><span class="token operator">*</span> s<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">strlen</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sum <span class="token operator">+=</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> sum<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>What is the bottleneck?</p>
+<ul>
+<li>strlen is called every time</li>
+<li>Code motion moves strlen outside of the loop</li>
+</ul>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-int">int</span> <span class="token function">char_sum</span><span class="token punctuation">(</span><span class="token keyword keyword-char">char</span><span class="token operator">*</span> s<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-for">for</span><span class="token punctuation">(</span><span class="token class-name">size_t</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">strlen</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword keyword-if">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> <span class="token string">&apos;A&apos;</span> <span class="token operator">&amp;&amp;</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> <span class="token string">&apos;Z&apos;</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token punctuation">(</span><span class="token string">&apos;A&apos;</span> <span class="token operator">-</span> <span class="token string">&apos;a&apos;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword keyword-return">return</span> sum<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><p>Here, because the string (possibly) changes, gcc can&apos;t move strlen outside of the loop.</p>
+<h2 class="mume-header" id="optimizing-the-code">Optimizing the code</h2>
+
+<ul>
+<li>Explore various optimizations to reduce instruction count and runtime.
+<ul>
+<li>More efficent big-O</li>
+<li>Explore other ways to reduce instruction time
+<ul>
+<li>Use callgrind to find bottlenecks</li>
+<li>Optimize with -O2 and -O3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 class="mume-header" id="compiler-optimization">Compiler optimization</h3>
+
+<p>Why not just compile with -O2?</p>
+<ul>
+<li>It is harder to debug</li>
+<li>Optimizations may not always improve the program. The compiler does its best, but may not work or slow things down. Experiment to see what works the best.</li>
+</ul>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html><html><head>
+      <title>lec18</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <style>
+      /**
+ * prism.js Github theme based on GitHub's theme.
+ * @author Sam Clarke
+ */
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.4;
+
+  -moz-tab-size: 8;
+  -o-tab-size: 8;
+  tab-size: 8;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: .8em;
+  overflow: auto;
+  /* border: 1px solid #ddd; */
+  border-radius: 3px;
+  /* background: #fff; */
+  background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  white-space: normal;
+  background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+  color: #969896;
+}
+
+.token.cdata {
+  color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+  color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+  color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+  color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+  color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+  color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+  color: #795da3;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+  font-weight: bold;
+  color: #1d3e81;
+}
+
+.token.list {
+  color: #ed6a43;
+}
+
+.token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+  color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+  color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+  color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+code.language-yaml {
+  color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+  color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+  color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.language-makefile .token.variable {
+  color: #183691;
+}
+
+.language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+  color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+  position: relative;
+  padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  display: block;
+  width: 100%;
+}
+
+pre[data-line] .line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: hsla(24, 20%, 50%,.08);
+  background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-start);
+  position: absolute;
+  top: .4em;
+  left: .6em;
+  min-width: 1em;
+  padding: 0 .5em;
+  background-color: hsla(24, 20%, 50%,.4);
+  color: hsl(24, 20%, 95%);
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  vertical-align: .3em;
+  border-radius: 999px;
+  text-shadow: none;
+  box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+  content: attr(data-end);
+  top: auto;
+  bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p,html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div{display:inline}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+    </head>
+    <body for="html-export">
+      <div class="mume markdown-preview  ">
+      <h1 class="mume-header" id="x86-64-procedures">x86-64 procedures</h1>
+
+<h2 class="mume-header" id="revisiting-rip">Revisiting <code>%rip</code></h2>
+
+<p>Stores the address of the next instruction to execute.</p>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-void">void</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-int">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-while">while</span><span class="token punctuation">(</span>i <span class="token operator">&lt;</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        i <span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="asm" class="language-asm"><code>0000000000400570 &lt;loop&gt;:
+    0x400570 &lt;+0&gt;:  b8 00 00 00 00  mov $0x0,%eax
+    0x400575 &lt;+5&gt;:  eb 03           jmp 0x40057a &lt;loop+10&gt;
+    0x400577 &lt;+7&gt;:  83 c0 01        add $0x1,%eax
+    0x40057a &lt;+10&gt;: 83 f8 63        cmp $0x63,%eax
+    0x40057d &lt;+13&gt;: 73 f8           jle 0x400577 &lt;loop+7&gt;
+    0x40057f &lt;+15&gt;: f3 c3           repz retq
+</code></pre><p>the 0x03 in &lt;+5&gt; is the number of instruction bytes to jump relative to <code>%rip</code>.</p>
+<p>while executing &lt;+5&gt;, <code>%rip</code> stores &lt;+7&gt;. We add 3 to it, it jumps to &lt;+10&gt;.</p>
+<p>0x73 means jle. 0xf8 means jump back 8 bytes.<br>
+0xf8 means -8. <code>%rip</code> stores &lt;+15&gt;, -8 = &lt;+7&gt;.</p>
+<p>Machine code instructions are stored in the main memory.<br>
+%rip is a register that stores a number, which is the address of the next instruction to execute.<br>
+Special hardware adds the size of the current instruction to %rip, and stores the result in %rip.</p>
+<h1 class="mume-header" id="calling-functions">Calling functions</h1>
+
+<p><strong>Pass control:</strong></p>
+<ul>
+<li>%rip must be adjusted to execute the callee&apos;s instructions and then resume the caller&apos;s instructions afterwards.</li>
+</ul>
+<p><strong>Pass data:</strong></p>
+<ul>
+<li>We must pass any parameters and recieve any return value.</li>
+</ul>
+<p><strong>Manage memory:</strong></p>
+<ul>
+<li>We must handle any space needed by the callee on the stack.</li>
+</ul>
+<p><strong>caller</strong> function calls the <strong>callee</strong> function.</p>
+<h2 class="mume-header" id="the-stack">The Stack</h2>
+
+<h3 class="mume-header" id="rsp">%rsp</h3>
+
+<ul>
+<li>
+<p>%rsp is a special register that stores the address of the current &quot;top&quot; of the stack (bottom in our diagrams since stack grows downwards).</p>
+</li>
+<li>
+<p>%rsp must point to the same place before a function is called and after it returns, since stack frames go away after a function returns.</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="./img/lec18_rsp_stack_diagram.png" alt="rsp stack diagram"></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h3 class="mume-header" id="push">push</h3>
+
+<ul>
+<li>The push instruction pushes the data at the specified source onto the top of the stack, adjusting %rsp accordingly.</li>
+<li>Basically puts the given <code>quad word</code> into <code>%rsp</code> and subtracts 8 from <code>%rsp</code>.</li>
+</ul>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>pushq S ; R[%rsp] &lt;- R[%rsp] - 8
+        ; M[R[%rsp]] &lt;- S
+</code></pre><p>This is equivalent to</p>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>subq $8, %rsp
+movq S, (%rsp)
+</code></pre><ul>
+<li>Sometimes instructions just explicitly decrement the stack pointer to make room for future data.</li>
+<li>Also compiler likes to allocate more space than needed <small>(maybe because it wants to align memory to the powers of 2/4 or something)</small>.</li>
+</ul>
+<h3 class="mume-header" id="pop">pop</h3>
+
+<ul>
+<li>The pop instruction pops the topmost data from stack and stores it in the specified destination, adjusting %rsp accordingly.</li>
+</ul>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>popq D ; D &lt;- M[R[%rsp]]
+       ; R[%rsp] &lt;- R[%rsp] + 8
+</code></pre><p>This does not remove, clear the data! It just changes %rsp to indicate the next push can overwrite that location.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Stack Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="./img/lec18_stack_example.png" alt="stack-example"></td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="pass-control">Pass control</h2>
+
+<p><strong>Problem:</strong></p>
+<ul>
+<li>%rip stores the next instruction. When we call a function, we must remember the next caller instruction to resume after.</li>
+</ul>
+<p><strong>Solution:</strong></p>
+<ul>
+<li>Push the next value of %rip to stack. Then call the function. When it is finished, put this value back into %rip and continue executing.</li>
+</ul>
+<h3 class="mume-header" id="call-and-return">Call and Return</h3>
+
+<p>The call instruction pushes the address of the next instruction on the stack and sets %rip to point to the beginning of the function</p>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>call Label
+call *Operand
+</code></pre><p>The ret instruction pops this instruction address from the stack and stores it in %rip.</p>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>ret
+</code></pre><p>The stored %rip value is called return address. (DONT CONFUSE WITH RETURN VALUE)</p>
+<h4 class="mume-header" id="example">Example:</h4>
+
+<p>Consider the assembly code:</p>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>do_smt:
+    pushl 0x8
+    call do_smt_else
+    popq %rax   ;let this address be RA2
+    retq
+do_smt_else:
+    ;some other assembly code that uses stack space
+    retq    
+
+</code></pre><p>Assume RA1 is the return address of the caller of do_smt.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Stack representation <small>(Higher memory addresses to the left.)</small></th>
+<th style="text-align:right">explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">? / RA1 /</td>
+<td style="text-align:right">Start of do smt</td>
+</tr>
+<tr>
+<td style="text-align:left">? / RA1 / 8 /</td>
+<td style="text-align:right">Save 8 on the stack</td>
+</tr>
+<tr>
+<td style="text-align:left">? / RA1 / 8 / RA2 /</td>
+<td style="text-align:right">call do_smt_else</td>
+</tr>
+<tr>
+<td style="text-align:left">? / RA1 / 8 / RA2 / ?? /</td>
+<td style="text-align:right">do_smt_else allocates stack space</td>
+</tr>
+<tr>
+<td style="text-align:left">? / RA1 / 8 / RA2 /</td>
+<td style="text-align:right">do_smt_else deallocates stack space</td>
+</tr>
+<tr>
+<td style="text-align:left">? / RA1 / 8 /</td>
+<td style="text-align:right"><code>retq</code>, control returns to RA2</td>
+</tr>
+<tr>
+<td style="text-align:left">? / RA1 /</td>
+<td style="text-align:right">popq, <code>%rax</code> = 8</td>
+</tr>
+<tr>
+<td style="text-align:left">? /</td>
+<td style="text-align:right">retq, control returns to RA1</td>
+</tr>
+</tbody>
+</table>
+<h2 class="mume-header" id="pass-data">Pass data</h2>
+
+<p>First 6 arguments are stored in registers. The rest are stored on the stack. (arg 7 closer to %rsp)</p>
+<p><img src="./img/lec18_registers_stack.png" alt="registers / stack for arguments"></p>
+<h3 class="mume-header" id="example-1">Example</h3>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword keyword-int">int</span> i1 <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> i2 <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> i3 <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> i4 <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-int">int</span> result <span class="token operator">=</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>i1<span class="token punctuation">,</span> <span class="token operator">&amp;</span>i2<span class="token punctuation">,</span> <span class="token operator">&amp;</span>i3<span class="token punctuation">,</span> <span class="token operator">&amp;</span>i4<span class="token punctuation">,</span>
+i1<span class="token punctuation">,</span> i2<span class="token punctuation">,</span> i3<span class="token punctuation">,</span> i4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+<span class="token keyword keyword-int">int</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p1<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p2<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p3<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> <span class="token operator">*</span>p4<span class="token punctuation">,</span>
+<span class="token keyword keyword-int">int</span> v1<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> v2<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> v3<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> v4<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="asm" class="language-asm"><code>    sub $0x18,%rsp          ;allocate stack space 
+    movl $0x1,0xc(%rsp)     
+    movl $0x2,0x8(%rsp)
+    movl $0x3,0x4(%rsp)     
+    movl $0x4,(%rsp)        ;put i1 - i4 on stack
+    pushq $0x4              ;put i4 (8th argument) on stack
+    pushq $0x3              ;put i3 (7th argument) on stack
+    mov $0x2,%r9d           ;put i2 as the 6th argument
+    mov $0x1,%r8d           ; ...
+    lea 0x10(%rsp),%rcx
+    lea 0x14(%rsp),%rdx
+    lea 0x18(%rsp),%rsi
+    lea 0x1c(%rsp),%rdi     ;put &amp;i1 as the first argument
+    callq 0x400546 &lt;func&gt;   ;call function
+    add $0x10,%rsp          ;deallocate stack space
+</code></pre><h2 class="mume-header" id="manage-memory">Manage memory</h2>
+
+<ul>
+<li>We must handle any space needed by the callee on the stack.</li>
+</ul>
+<p>There are 3 reasons for this:</p>
+<ul>
+<li>We&apos;ve run out of registers</li>
+<li>The <code>&amp;</code> operator is used on it, so we must generate an address for it</li>
+<li>There are arrays or structs (need to use address arithmetic)</li>
+</ul>
+<hr>
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-long">long</span> <span class="token function">caller</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-long">long</span> arg1 <span class="token operator">=</span> <span class="token number">534</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-long">long</span> arg2 <span class="token operator">=</span> <span class="token number">1057</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-long">long</span> sum <span class="token operator">=</span> <span class="token function">swap_add</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>arg1<span class="token punctuation">,</span> <span class="token operator">&amp;</span>arg2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="asm" class="language-asm"><code>caller:
+    subq $0x10, %rsp        ;16 bytes for stack frame
+    movq $0x216, (%rsp)     ;store 534
+    movq $0x421, 8(%rsp)    ;store 1057
+    leaq 8(%rsp), %rsi      ;compute &amp;arg2 as second arg
+    movq %rsp, %rdi         ;compute &amp;arg1 as first arg    
+    call swap_add           ;call swap_add
+</code></pre><h3 class="mume-header" id="register-restrictios">Register Restrictios</h3>
+
+<ul>
+<li>When procedure yoo calls who:
+<ul>
+<li>yoo is the caller</li>
+<li>who is the callee</li>
+</ul>
+</li>
+<li>Can registers be used for temporary storage?</li>
+</ul>
+<pre data-role="codeBlock" data-info="asm" class="language-asm"><code>yoo:
+    ...
+    movq $15213, %rdx   ;15213 in rdx
+    call who
+    addq %rdx, %rax     ;now -3000 in rdx?
+    ...
+    ret
+</code></pre><pre data-role="codeBlock" data-info="asm" class="language-asm"><code>who:
+    ...
+    subq $18213, %rdx   ;15213 -&gt; -3000
+    ...
+    ret
+</code></pre><p>There is only one copy of registers for all programs and fuctions.</p>
+<p><strong>Problem:</strong> What if funcA is building up a value in register %r10 and calls funcB, which also uses %r10?</p>
+<p>Solution: Make some registers caller-owned and some callee-owned.</p>
+<p><img src="img/lec18_stack_diagram.png" alt="caller-diagram"></p>
+<p><strong>Caller-Owned:</strong></p>
+<ul>
+<li>Callee must save the existing value and restore it when done.</li>
+<li>Caller can store values and assume they will be preserved across function calls.</li>
+</ul>
+<p><strong>Callee-Owned:</strong></p>
+<ul>
+<li>Callee does not need to save the existing data</li>
+<li>Caller&apos;s values can be overwritten by the callee. Caller should save the value if it needs to be preserved.</li>
+</ul>
+<p>Note that callee-owned also means caller-saved. (and vice versa)</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Registers</th>
+<th style="text-align:right">Specialty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">%rax</td>
+<td style="text-align:right">Return value</td>
+</tr>
+<tr>
+<td style="text-align:left">%rbx</td>
+<td style="text-align:right">Callee saved</td>
+</tr>
+<tr>
+<td style="text-align:left">%rcx</td>
+<td style="text-align:right">4th argument</td>
+</tr>
+<tr>
+<td style="text-align:left">%rdx</td>
+<td style="text-align:right">3rd argument</td>
+</tr>
+<tr>
+<td style="text-align:left">%rsi</td>
+<td style="text-align:right">2nd argument</td>
+</tr>
+<tr>
+<td style="text-align:left">%rdi</td>
+<td style="text-align:right">1st argument</td>
+</tr>
+<tr>
+<td style="text-align:left">%rbp</td>
+<td style="text-align:right">Callee saved</td>
+</tr>
+<tr>
+<td style="text-align:left">%rsp</td>
+<td style="text-align:right">Stack pointer</td>
+</tr>
+<tr>
+<td style="text-align:left">%r8</td>
+<td style="text-align:right">5th argument</td>
+</tr>
+<tr>
+<td style="text-align:left">%r9</td>
+<td style="text-align:right">6th argument</td>
+</tr>
+<tr>
+<td style="text-align:left">%r10</td>
+<td style="text-align:right">Caller saved</td>
+</tr>
+<tr>
+<td style="text-align:left">%r11</td>
+<td style="text-align:right">Caller saved</td>
+</tr>
+<tr>
+<td style="text-align:left">%r12 - %r15</td>
+<td style="text-align:right">Callee saved</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><img src="img/lec18_caller_owned_1.png" alt="registers in functions"></th>
+<th style="text-align:right"><img src="img/lec18_caller_owned_2.png" alt="registers in functions 2"></th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h1 class="mume-header" id="recursion-example">Recursion Example</h1>
+
+<pre data-role="codeBlock" data-info="c" class="language-c"><span class="token keyword keyword-long">long</span> <span class="token function">factorial</span><span class="token punctuation">(</span><span class="token keyword keyword-long">long</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-long">long</span> result<span class="token punctuation">;</span>
+    <span class="token keyword keyword-if">if</span> <span class="token punctuation">(</span>n <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        result <span class="token operator">=</span> n <span class="token operator">*</span> <span class="token function">factorial</span><span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword keyword-else">else</span> <span class="token punctuation">{</span>
+        result <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token keyword keyword-return">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span> 
+
+<span class="token keyword keyword-int">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> argc<span class="token punctuation">,</span> <span class="token keyword keyword-char">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-long">long</span> num <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-long">long</span> factnum <span class="token operator">=</span> <span class="token function">factorial</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">&quot;%ld! = %ld\n&quot;</span><span class="token punctuation">,</span> num<span class="token punctuation">,</span> factnum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword keyword-return">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</pre><pre data-role="codeBlock" data-info="asm" class="language-asm"><code>factorial:
+  cmpq $1, %rdi
+  jle .L3
+  pushq %rbx
+  movq %rdi, %rbx
+  leaq -1(%rdi), %rdi
+  call factorial
+  imulq %rbx, %rax
+  jmp .L2
+.L3:
+  movl $1, %eax
+  ret
+.L2:
+  popq %rbx
+  ret
+.LC0:
+  .string &quot;%ld! = %ld\n&quot;
+main:
+  subq $8, %rsp
+  movl $5, %edi
+  call factorial
+  movq %rax, %rdx
+  movl $5, %esi
+  movl $.LC0, %edi
+  movl $0, %eax
+  call printf
+  movl $0, %eax
+  addq $8, %rsp
+  ret
+</code></pre>
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
