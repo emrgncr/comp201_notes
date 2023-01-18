@@ -27,3 +27,4 @@ You can find the lecture notes here, I guess I will update them ocationally.
 20) [Lec 20, Floats and Buffer Overflow](./lec20.md)
 21) [Lec 21, Hardware, Storage, Disks](./lec21.md)
 22) [Lec 22, Cache Memories, Locality](./lec22.md)
+23) [Lec 23, Cache Memories, Associativity](./lec23.md)
